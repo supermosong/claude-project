@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\abcmo\\\\AppData\\\\Roaming\\\\nvm\" -ErrorAction SilentlyContinue; Get-ChildItem \"C:\\\\Users\\\\abcmo\\\\.nvm\" -ErrorAction SilentlyContinue; Get-ChildItem \"C:\\\\nvm\" -ErrorAction SilentlyContinue; [System.Environment]::GetEnvironmentVariable\\(\"PATH\", \"User\"\\) -split \";\" | Where-Object { $_ -ne \"\" })",
+      "mcp__supabase__apply_migration",
+      "mcp__supabase__get_project_url",
+      "PowerShell(winget install *)",
+      "Bash(stripe --version)",
+      "Bash(winget *)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "supabase"
+  ]
+}
