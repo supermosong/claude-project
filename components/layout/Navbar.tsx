@@ -13,7 +13,6 @@ export default function Navbar() {
         </Link>
         <div className="hidden md:flex items-center gap-6 text-sm">
           <Link href="/#games" className="text-slate-400 hover:text-white transition-colors">เกม</Link>
-          <Link href="/pricing" className="text-slate-400 hover:text-white transition-colors">ราคา</Link>
         </div>
         <div className="hidden md:flex items-center gap-3">
           <Link href="/auth/login"><Button variant="ghost" size="sm">เข้าสู่ระบบ</Button></Link>
@@ -30,7 +29,6 @@ export default function Navbar() {
       {open && (
         <div className="md:hidden border-t border-game-border bg-game-dark px-4 py-4 space-y-2">
           <Link href="/#games" className="block py-2 text-slate-300 hover:text-white">เกม</Link>
-          <Link href="/pricing" className="block py-2 text-slate-300 hover:text-white">ราคา</Link>
           <Link href="/auth/login" className="block py-2 text-slate-300 hover:text-white">เข้าสู่ระบบ</Link>
           <Link href="/auth/signup" className="block"><Button size="sm" className="w-full">สมัครฟรี</Button></Link>
         </div>
