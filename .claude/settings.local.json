@@ -8,7 +8,8 @@
       "Bash(stripe --version)",
       "Bash(winget *)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(npx next *)"
     ]
   },
   "enableAllProjectMcpServers": true,

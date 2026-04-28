@@ -35,6 +35,7 @@ export default function ReactionTestPage() {
       setReactionTime(ms)
       setTimes(t => [...t.slice(-4), ms])
       setPhase('idle')
+      return
     }
     if (phase === 'early') return startRound()
   }

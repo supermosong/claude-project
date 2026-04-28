@@ -17,7 +17,7 @@ A Thai-language party game web app with authentication, multiple games, a friend
 - [x] Public layout + Navbar
 - [x] App layout + Sidebar (desktop) + MobileNav (mobile)
 - [x] Landing page (hero, games grid, features, CTA, footer)
-- [x] Pricing page (Free vs Pro ฿175/month, FAQ)
+- [x] Pricing page (Free vs Pro ฿175/month, FAQ, UpgradeButton)
 - [x] Login page (email/password + Google OAuth)
 - [x] Signup page (email/password + Google OAuth + email confirmation handling)
 - [x] Auth callback route (Google OAuth exchange)
@@ -31,7 +31,7 @@ A Thai-language party game web app with authentication, multiple games, a friend
 - [x] Reaction Test (phases, timing, stats)
 - [x] Draw & Guess page (Pro gate)
 - [x] PlanGate component (blur + upgrade modal)
-- [x] Button, Badge UI components
+- [x] Button, Badge, UpgradeButton UI components
 - [x] Middleware (auth protection + redirect)
 - [x] Supabase client + server helpers
 - [x] Stripe client helper
@@ -77,15 +77,27 @@ custom_cards (id, user_id, type: truth|dare, content, difficulty, created_at)
 
 ---
 
-### 🔌 Phase 2 — Backend API Routes
+### 🔌 Phase 2 — Backend API Routes ✅ (fake Stripe active)
 
-| Route | Purpose |
-|-------|---------|
-| `POST /api/stripe/checkout` | Create Stripe checkout session → redirect to payment |
-| `GET  /api/stripe/portal` | Create Stripe customer portal session → manage subscription |
-| `POST /api/stripe/webhook` | Handle Stripe events: update user plan on payment success/cancel |
+| Route | Purpose | Status |
+|-------|---------|--------|
+| `POST /api/stripe/checkout` | Redirects to `/fake-checkout` (swap for real Stripe later) | ✅ |
+| `GET  /api/stripe/portal` | Redirects to `/fake-portal` (swap for real Stripe later) | ✅ |
+| `POST /api/stripe/webhook` | Stub — wire up when Stripe is live | stub |
+| `POST /api/fake-stripe/confirm` | Sets user plan → `pro` via Supabase admin | ✅ |
+| `POST /api/fake-stripe/cancel` | Sets user plan → `free` via Supabase admin | ✅ |
 
-**Webhook events to handle:**
+**Fake Stripe pages (dev only):**
+- `/fake-checkout` — simulates payment, calls `/api/fake-stripe/confirm`, redirects to `/dashboard`
+- `/fake-portal` — simulates billing portal, calls `/api/fake-stripe/cancel`, redirects to `/settings`
+
+**To go live with real Stripe:**
+1. `npm install stripe`
+2. Fill in `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_STRIPE_PRO_PRICE_ID`
+3. Uncomment the real logic in `checkout/route.ts`, `portal/route.ts`, `webhook/route.ts`
+4. Delete `/fake-checkout`, `/fake-portal`, `/api/fake-stripe/`
+
+**Webhook events to handle (when live):**
 - `checkout.session.completed` → set user plan to `pro`
 - `customer.subscription.deleted` → set user plan back to `free`
 

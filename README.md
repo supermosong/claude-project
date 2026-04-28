@@ -116,16 +116,28 @@ Deploy to [Vercel](https://vercel.com), set all environment variables, and add `
 | Custom Cards | — | ✓ |
 | Friends system | ✓ | ✓ |
 
+## Fake Stripe (dev mode)
+
+Stripe is not wired up yet. A fake payment flow is used for testing:
+
+- Click **อัปเกรดเป็น Pro** on `/pricing` → upgrades your account immediately
+- Go to `/fake-portal` to cancel (downgrade back to free)
+
+Plan is stored in `user.user_metadata.plan` (`'free'` or `'pro'`). To switch to real Stripe, see the Phase 2 section in `PLAN.md`.
+
 ## Project Structure
 
 ```
 app/
-  (public)/        # Landing, pricing, login, signup
-  (app)/           # Auth-protected: dashboard, games, profile, friends, settings
+  (public)/          # Landing, pricing, login, signup, fake-checkout, fake-portal
+  (app)/             # Auth-protected: dashboard, games, profile, friends, settings
+  api/
+    stripe/          # checkout, portal, webhook (stubbed for real Stripe)
+    fake-stripe/     # confirm, cancel (dev-only plan toggling)
 lib/
-  supabase/        # Browser + server + service clients
-  cards.ts         # 58 Thai Truth or Dare cards
+  supabase/          # Browser + server + service clients
+  cards.ts           # 58 Thai Truth or Dare cards
 components/
-  ui/              # Button, Badge
-  layout/          # Navbar, Sidebar, MobileNav
+  ui/                # Button, Badge, UpgradeButton
+  layout/            # Navbar, Sidebar, MobileNav
 ```
